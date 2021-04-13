@@ -4,6 +4,17 @@ pragma solidity ^0.8.0;
 
 import 'openzeppelin-solidity/contracts/token/ERC721/ERC721.sol';
 
+/*
+ALREADY DONE:
+described all functions needed for the project to work, check need of all functions and if lacks more;
+
+TODO: 
+set all state variables needed, as well as mapping functions;
+check requirements in all functions, if all proceed;
+set the approval functions for the users to request and allow contract owner to transer, merge, and request proof;
+check the imported contracts and its functions, replace or use all of then, also delete the unnecessary;
+*/
+
 contract SmartLandTest is ERC721 {
 
     // state variables here
