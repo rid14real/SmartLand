@@ -1,6 +1,6 @@
 # The-Smart-Team-Project
 
-SOLVING THE PROBLEMS OF LAND REGISTRY, REGISTRATION, AND RELATED MATTERS WITH BLOCKCHAIN TECHNOLOGY
+SOLVING THE PROBLEMS OF LAND REGISTRY, REGISTRATION OF LAND TITLES, REAL ESTATE, AND RELATED MATTERS WITH BLOCKCHAIN TECHNOLOGY
 
 PREAMBLE
 Land registration generally describes systems by which matters concerning ownership, possession or other rights in land can be recorded with a government agency to provide evidence of title, facilitate transactions and to prevent unlawful disposal.
