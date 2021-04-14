@@ -1,34 +1,30 @@
-// SPDX-License-Identifier: MIT
-
-pragma solidity ^0.8.0;
-
 import 'openzeppelin-solidity/contracts/token/ERC721/ERC721.sol';
+import 'openzeppelin-solidity/contracts/access/Ownable.sol';
 
-/*
-ALREADY DONE:
-described all functions needed for the project to work, check need of all functions and if lacks more;
+contract SmartLandTest is ERC721, Ownable {
 
-TODO: 
-set all state variables needed, as well as mapping functions;
-check requirements in all functions, if all proceed;
-set the approval functions for the users to request and allow contract owner to transer, merge, and request proof;
-check the imported contracts and its functions, replace or use all of then, also delete the unnecessary;
-*/
-
-contract SmartLandTest is ERC721 {
+    // events here
+    event NewTitle(uint tokenId, address user, string name);
 
     // state variables here
+    string name;
+    string symbol;
     address owner;
     uint256 tokenId;
-    uint256[] tokenIds;
-    address[] users;
 
-    struct TittleInfo {
-        string tittleAddress;
+    struct Title {
+        string name;
+        string titleAddress;
         //TODO
     }
 
-    // events here
+    // An organised storage for new titles and users data
+    Title[] public titles;
+    User[] public users; // this array is here tentatively
+
+
+    // Mapping to keep track of the address that owns a title
+    mapping (uint => address) titleToOwner;
 
     // mapping variables here
     mapping(address => uint256) _balanceOf;
@@ -41,12 +37,33 @@ contract SmartLandTest is ERC721 {
     }
 
     // modifiers here
-    modifier onlyOwner() {
-        require(msg.sender == owner);
+    // this modifier will be added to validate the ownership of the title by the owner
+    modifier ownerOf(uint _titleId) {
+        require(msg.sender == titleToOwner[_titleId]);
+        _;
     }
+
+    // function to create title
+    function _createTitle(string memory _name, uint _titleAddress) private onlyOwner {
+        uint. id = titles.push(Title(_name, _titleAddress)) - 1;
+        titleToOwner[id] = msg.sender;
+        emit NewTitle(uint titleId, string name, uint titleAddress)
+    }
+
+    // this function should return the land title or profile that belongs to a particular user
+    // anyone can call it in order to verify the authenticity of the ownership
+    // this function will not cost the user calling it any gas
+    function getTitleByOwner(address _owner) external view returns(uint[] memory) {
+        uint[] memory result = new uint[](titleToOwner[_owner]);
+        return result;
+    }
+
+    // the above function setting is for creating NFTs for each title in the Land registry.
+    // the functions below are for the potential users to interact with afterwards
 
     // functions here
     function mint(address _to, structdata) public onlyOwner returns (uint256) {
+        uint id = titles.push(Title(_to, structdata))
         require(isRegistered(_to), "User receiver not registered");
         //TODO
     }
@@ -74,11 +91,10 @@ contract SmartLandTest is ERC721 {
             return false;
         }
     }
-
-    // high complexity function, a tittle cannot be burnt without a new one is created over it,
-    // and several tittles could be burnt to merge into a single tittle, address requested should be
-    // owner of all tittles and will obligatory receive the merged one. 
-    function mergeTittle(address _to, uint256 _tokenId, struct) public onlyOwner returns (uint256) {
+    // high complexity function, a title cannot be burnt without a new one created over it,
+    // and several titles could be burnt to merge into a single title, address requested should be
+    // owner of all titles and will obligatory receive the merged one. 
+    function mergeTitle(address _to, uint256 _tokenId, struct) public onlyOwner returns (uint256) {
         require(isRegistered(_to), "User receiver not registered");
         require(isOwner(_to, _tokenId), "User is not tittle owner");
         _burn(_tokenId); // burn the old nft, but the tokenId will not be used anymore.
@@ -114,7 +130,7 @@ contract SmartLandTest is ERC721 {
 
     // check code
     function totalSuply() public returns (uint256) {
-        return tokenIds.lenght;
+        return tokenIds.length;
     }
 
     // find out how to return a list of all tokenIds and respective addresses iterated in one function
@@ -122,20 +138,19 @@ contract SmartLandTest is ERC721 {
         for(uint i = 0; i >= tokenIds.lenght; i++) {
             return (tokenIds[i], _ownerOf[tokenIds[i]]);
         }
+
     // TODO
     }
-
     function tokenInfo(address _address, uint256 _tokenId) public OnlyOwner returns (struct) {
         require(isRegistered(_address), "User not registered");
         require(isOwner(_address, _tokenId), "User is not tittle owner");
         // TODO
-    } 
+    }
 
     function setOwner(address _newOwner) public onlyOwner returns (bool success) {
         owner = _newOwner;
         return true;
     }
-
+    
     // more functions here...
-
 }    
