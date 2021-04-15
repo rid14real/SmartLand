@@ -1,16 +1,26 @@
 Backend code for SmartLand project
 
-Temporary infos:
+NOTE: some additional content belongs to two libraries installed to enhance contract creation, being openzeppelin-solidity and truffle suite, installed through npm on node.js
 
-The last commit brought openzeppelin-solidity libraries addition as well as some truffle files for all contributors to enjoy using those tools, as the open zeppelin libraries, some truffle commands as truffle-flattener to merge all dependencies of a written smart-contract into one single file.
+    npm intall truffle -g
+    npm intall openzeppelin-solidity
 
-the edited smart-contract is smartland.sol, which inherits ERC721.sol contract from open zeppelin library.
+The folder "node_modules" and files "package-lock.json", "package.json" belongs to openzeppelin library and dependencies;
 
-the flattenedSmartland.sol is the merged file with all dependencies included. (read that, all imports and interfaces nedded)
+The folders "migrations", "contracts", "test", and the file "truffle-config.js" belongs to truffle library and dependencies;
 
-Folders:
-migration, contracts, test belongs to truffle suite;
+File content description:
 
-node_modules belongs to openzeppelin library dependencies;
+ - "model.sol" - description of all variables and functions the contract should have to be functional (commited by Jay);
 
-package.json and package-lock.json also belongs to openzeppelin libraries.
+
+Aiming enhanced organization, I've decided to divide the contract by fractions, this way will be easier to understand the contract:
+ - "UserRegister.sol" - all variables and functions related to user registration for the main contract. could be created an library for them to be inherited on the final contract for example, or directly implemented by copy/paste (commited by Jay);
+ - "TitleData.sol" - all variable and functions related to nft creation/minting and transfering (commited by Jay);
+
+ -"2-deploy-contract.js", "migration.sol", "smartassets.sol" - should be implemented accordingly on the final contract version(commited by Esther);
+
+ - "SmartLandTest.sol", "flattenedSmartland.sol", "smartland.sol" - first contract deployment version, DEPRECATED, should be deleted on the final repo commit.
+
+ 
+
