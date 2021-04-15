@@ -20,3 +20,7 @@ FEASIBILITY STUDY
 Real estate is a unique asset class. It is tangible and is one of the most stable asset classes from time immemorial. Although, real estate is dealt with physically, the transaction ecosystem foro real estate is virtually in the dark.
 
 COMPETITION
+The technology solution does not have any competition in terms of geography. Virtually all blockchain innovation in this area of ownership and governance deals focuses on fractional ownership of land. Meanwhile, the main focus of our project is to provide a solution to the land registries of the states in the countries of our case study and provide an efficient transfer of land in the real estate ecosystem.
+
+SMART CONTRACTS
+The token standard that was used in this project is the ERC721 tokens. It is the perfect token because it is indivisible and not interchangeable, hence its uniqueness. They can only be traded in whole unit
