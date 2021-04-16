@@ -114,6 +114,8 @@
 
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+
   <script>
 
     // This part lets the user interface talk to the smart contract
@@ -131,7 +133,7 @@
       var accountInterval = setInterval(function() {
         // Check if account has changed
         if (web3.eth.account[0] !== userAccount) {
-          userAccount = web3.eth.account[0];
+          userAccount = web3.eth.account[0]; // for 10 default addresses "web3.eth.defaultAccount" should replace userAccount
           // Call some functions to update the UI with the new account
           getTitleByOwner(userAccount);
           .then(displayTitle);
@@ -178,6 +180,7 @@
           // Handle the case where the user doesn't have web3. Probably
           // show them a message telling them to install Metamask in 
           // order to use our app.
+          web3 = new Web3(new Web3.providers.HttpProvider("MetaMask")) 
       }
 
       // Now you can start your app & access web3js freely:
