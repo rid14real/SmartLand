@@ -7,7 +7,8 @@
     <title>SMARTLAND PROTOCOL</title>
     <script language="javascript" type="text/javascript" src="https://cdnjs.cloudfare.com/ajax/lips/jquery/3.3.1/jquery.min.js"></script>
     <script language="javascript" type="text/javascript" src="web3.min.js"></script>
-    <script language="javascript" type="text/javascript" src="../javascript/metamask-checker.js"></script>
+    <!-- <script language="javascript" type="text/javascript" src="../javascript/smartland-web3.js"></script> -->
+    <!-- <script language="javascript" type="text/javascript" src="../javascript/metamask-checker.js"></script> -->
     <script language="javascript" type="text/javascript" src="../javascript/smartland_abi.js"></script>
     <link rel="stylesheet" href="style.css">
   </head>
@@ -111,6 +112,8 @@
     </div>
   </body>
   <script>
+
+    // This part lets the user interface talk to the smart contract
     // Insert the smartland deployment address where the string "SMARTLAND_CONTRACT_ADDRESS" is.
     var smartLand;
 
@@ -119,6 +122,7 @@
       smartLand = new web3js.eth.Contract(smartLandABI, smartLandAddress);
     }
 
+    // This is the metamask checker
     window.addEventListener('load', function() {
 
       // Checking if Web3 has been injected by the browser (Mist/MetaMask)
