@@ -128,7 +128,7 @@ contract SmartLand is ERC721 {
     /**
      * returns totalBalance of all titles already minted.
      */
-    function totalSuply() public view returns (uint256 totalBalance) {
+    function totalSupply() public view returns (uint256 totalBalance) {
         return allTitleIds.length;
     }
 
