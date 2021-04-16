@@ -9,11 +9,10 @@ pragma solidity ^0.8.0;
  * All function documentation yet no finished, do it ASAP!
  */
 
-import "./node_modules/openzeppelin-solidity/contracts/utils/Counters.sol";
 import "./node_modules/openzeppelin-solidity/contracts/token/ERC721/ERC721.sol";
 
 contract SmartLand is ERC721 {
-    using Counters for Counters.Counter;
+    //using Counters for Counters.Counter; // using the classical incrementation instead
 
     // event emited when an user is added (review)
     event UserRegistered(address _userAddress, uint256 _registryNo, uint256 _id, string _name);
@@ -21,9 +20,11 @@ contract SmartLand is ERC721 {
     address private contractOwner;
 
     // auto-generate title Id numbers for the titles minted, starting from =0
-    Counters.Counter private titleId;
+    //Counters.Counter private titleId;
+    uint256 private titleId;
     // auto-generate registry numbers for the users registered, starting from =0
-    Counters.Counter private registryNumber;
+    //Counters.Counter private registryNumber;
+    uint256 private registryNumber;
 
     // Array with all title Ids generated for enumeration purposes:
     uint256[] allTitleIds;
@@ -55,6 +56,9 @@ contract SmartLand is ERC721 {
 
     constructor () ERC721 ("SmartLand Token", "LAND") {
         contractOwner = msg.sender;
+        registryNumber = 0;
+        titleId = 0;
+
     }
 
     modifier onlyOwner() {
@@ -74,12 +78,12 @@ contract SmartLand is ERC721 {
             public onlyOwner returns (uint256 _titleId) {
         require(userExists[_receiver], "User receiver not registered");
         TitleInfo memory infos = TitleInfo(_titleAddress, _titleCoordinates);
-        _mint(_receiver, titleId.current());
-        _titleInfos[titleId.current()] = infos;
-        allTitleIds.push(titleId.current());
-        _titleExists[titleId.current()] = true;
-        titleId.increment();
-        return titleId.current() -1;
+        _mint(_receiver, titleId);
+        _titleInfos[titleId] = infos;
+        allTitleIds.push(titleId);
+        _titleExists[titleId] = true;
+        titleId++;
+        return titleId -1;
     }
 
     /**
@@ -148,11 +152,11 @@ contract SmartLand is ERC721 {
             public onlyOwner returns (bool success) { //should add the keywork onlyOwner
         require(!(userExists[_address]), "User already registered"); // requires UserExists[_address] == false.
         userExists[_address] = true;
-        uint256 _registryNo = registryNumber.current();
+        uint256 _registryNo = registryNumber;
         UserInfo memory infos = UserInfo(_registryNo, _id, _name);
         userInfo[_address] = infos;
         emit UserRegistered(_address, _registryNo, _id, _name); // event should be reviewed
-        registryNumber.increment();
+        registryNumber++;
         return true; 
     }
 
@@ -165,7 +169,5 @@ contract SmartLand is ERC721 {
         UserInfo memory infos = userInfo[_address];
         return (infos.registryNo, infos.id, infos.name);
     }
-
-   // more functions here...
 
 }
