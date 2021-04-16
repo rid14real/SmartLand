@@ -5,6 +5,10 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE= edge">
     <title>SMARTLAND PROTOCOL</title>
+    <script language="javascript" type="text/javascript" src="https://cdnjs.cloudfare.com/ajax/lips/jquery/3.3.1/jquery.min.js"></script>
+    <script language="javascript" type="text/javascript" src="web3.min.js"></script>
+    <script language="javascript" type="text/javascript" src="../javascript/metamask-checker.js"></script>
+    <script language="javascript" type="text/javascript" src="../javascript/smartland_abi.js"></script>
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
@@ -107,6 +111,28 @@
     </div>
   </body>
   <script>
-   const portfolioItems=document.querySelectorAll('.portfolio-item-wrapper')
+    // Insert the smartland deployment address where the string "SMARTLAND_CONTRACT_ADDRESS" is.
+    var smartLand;
+
+    function startApp() {
+      var smartLandAddress = "SMARTLAND_CONTRACT_ADDRESS";
+      smartLand = new web3js.eth.Contract(smartLandABI, smartLandAddress);
+    }
+
+    window.addEventListener('load', function() {
+
+      // Checking if Web3 has been injected by the browser (Mist/MetaMask)
+      if (typeof web3 !== 'undefined') {
+          // Use Mist/MetaMask's provider;
+          web3js = new Web3(web3.currentProvider);
+      } else {
+          // Handle the case where the user doesn't have web3. Probably
+          // show them a message telling them to install Metamask in 
+          // order to use our app.
+      }
+
+      // Now you can start your app & access web3js freely:
+      startApp()
+      })
   </script>
 </html>
