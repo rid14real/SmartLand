@@ -119,7 +119,20 @@
 
     function startApp() {
       var smartLandAddress = "SMARTLAND_CONTRACT_ADDRESS";
+      // The smartLandABI has been initialised in its file
       smartLand = new web3js.eth.Contract(smartLandABI, smartLandAddress);
+    }
+
+    function getTitleDetails(id) {
+      return smartLand.methods.titles(id).call() // The titles(id) is a function with parameter (could be an array or struct)
+    }
+
+    function titleToOwner(id) {
+      return smartLand.methods.titleToOwner(id).call()
+    }
+
+    function getTitleByOwner(owner) {
+      return smartLand.methods.getTitleByOwner(owner).call()
     }
 
     // This is the metamask checker
