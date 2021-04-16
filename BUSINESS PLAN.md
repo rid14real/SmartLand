@@ -37,3 +37,4 @@ Talking to the smart contracts: Web3.js needs the contract address and ABI to be
 
 Calling contract functions: Web3.js will use two methods to call functions on the contract, 'call' and 'send'.
 'call' is used for view and pure functions. Hence, it only runs ont he local node and does not create a transaction on the blockcahin. 'send' on the other hand will create a transaction and change data on the blockchain. This make the web3 provider, MetaMask in this instance, to pop up for the user to sign a transaction.
+
