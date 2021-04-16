@@ -7,7 +7,8 @@
     <title>SMARTLAND PROTOCOL</title>
     <script language="javascript" type="text/javascript" src="https://cdnjs.cloudfare.com/ajax/lips/jquery/3.3.1/jquery.min.js"></script>
     <script language="javascript" type="text/javascript" src="web3.min.js"></script>
-    <script language="javascript" type="text/javascript" src="../javascript/metamask-checker.js"></script>
+    <!-- <script language="javascript" type="text/javascript" src="../javascript/smartland-web3.js"></script> -->
+    <!-- <script language="javascript" type="text/javascript" src="../javascript/metamask-checker.js"></script> -->
     <script language="javascript" type="text/javascript" src="../javascript/smartland_abi.js"></script>
     <link rel="stylesheet" href="style.css">
   </head>
@@ -111,14 +112,30 @@
     </div>
   </body>
   <script>
+
+    // This part lets the user interface talk to the smart contract
     // Insert the smartland deployment address where the string "SMARTLAND_CONTRACT_ADDRESS" is.
     var smartLand;
 
     function startApp() {
       var smartLandAddress = "SMARTLAND_CONTRACT_ADDRESS";
+      // The smartLandABI has been initialised in its file
       smartLand = new web3js.eth.Contract(smartLandABI, smartLandAddress);
     }
 
+    function getTitleDetails(id) {
+      return smartLand.methods.titles(id).call() // The titles(id) is a function with parameter (could be an array or struct)
+    }
+
+    function titleToOwner(id) {
+      return smartLand.methods.titleToOwner(id).call()
+    }
+
+    function getTitleByOwner(owner) {
+      return smartLand.methods.getTitleByOwner(owner).call()
+    }
+
+    // This is the metamask checker
     window.addEventListener('load', function() {
 
       // Checking if Web3 has been injected by the browser (Mist/MetaMask)
