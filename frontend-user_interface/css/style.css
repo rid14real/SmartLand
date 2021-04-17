@@ -37,7 +37,8 @@
 
 .nav-link-wrapper a{ 
 
-    color: black;
+    color: white;
+    font-weight: bold;
     text-decoration: none;
     transition: color 0.5s;
 }
@@ -47,6 +48,12 @@
 
 .nav-link-wrapper a:hover{
 color: black;
+}
+
+.brand {
+    color: white;
+    font-size: larger;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
 /*main page styles*/
