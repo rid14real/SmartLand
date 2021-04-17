@@ -5,11 +5,6 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE= edge">
     <title>SMARTLAND PROTOCOL</title>
-    <script language="javascript" type="text/javascript" src="https://cdnjs.cloudfare.com/ajax/lips/jquery/3.3.1/jquery.min.js"></script>
-    <script language="javascript" type="text/javascript" src="web3.min.js"></script>
-    <!-- <script language="javascript" type="text/javascript" src="../javascript/smartland-web3.js"></script> -->
-    <!-- <script language="javascript" type="text/javascript" src="../javascript/metamask-checker.js"></script> -->
-    <script language="javascript" type="text/javascript" src="../javascript/smartland_abi.js"></script>
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
@@ -37,8 +32,7 @@
                  <img src="Images/land 1.png"> 
                </div>
                <div class="subtitle">
-                 Test for the smartland page
-               </div>
+                SOLVING THE PROBLEMS OF LAND REGISTRY, REGISTRATION OF LAND TITLES, REAL ESTATE, AND RELATED MATTERS WITH BLOCKCHAIN TECHNOLOGY               </div>
             </div>
          </div>
 
@@ -49,8 +43,7 @@
               <img src="Images/land 2.png"> 
              </div>
              <div class="subtitle">
-               Test for the smartland page
-             </div>
+              SOLVING THE PROBLEMS OF LAND REGISTRY, REGISTRATION OF LAND TITLES, REAL ESTATE, AND RELATED MATTERS WITH BLOCKCHAIN TECHNOLOGY             </div>
           </div>
        </div>
 
@@ -61,8 +54,7 @@
             <img src="Images/land 3.png"> 
            </div>
            <div class="subtitle">
-             Test for the smartland page
-           </div>
+            SOLVING THE PROBLEMS OF LAND REGISTRY, REGISTRATION OF LAND TITLES, REAL ESTATE, AND RELATED MATTERS WITH BLOCKCHAIN TECHNOLOGY           </div>
         </div>
      </div>
 
@@ -73,8 +65,7 @@
           <img src="Images/land 1.png"> 
          </div>
          <div class="subtitle">
-           Test for the smartland page
-         </div>
+          SOLVING THE PROBLEMS OF LAND REGISTRY, REGISTRATION OF LAND TITLES, REAL ESTATE, AND RELATED MATTERS WITH BLOCKCHAIN TECHNOLOGY         </div>
       </div>
    </div>
 
@@ -85,8 +76,7 @@
         <img src="Images/land 2.png">  
        </div>
        <div class="subtitle">
-         Test for the smartland page
-       </div>
+        SOLVING THE PROBLEMS OF LAND REGISTRY, REGISTRATION OF LAND TITLES, REAL ESTATE, AND RELATED MATTERS WITH BLOCKCHAIN TECHNOLOGY       </div>
     </div>
  </div>
 
@@ -97,8 +87,7 @@
       <img src="Images/land 3.png">  
      </div>
      <div class="subtitle">
-       Test for the smartland page
-     </div>
+      SOLVING THE PROBLEMS OF LAND REGISTRY, REGISTRATION OF LAND TITLES, REAL ESTATE, AND RELATED MATTERS WITH BLOCKCHAIN TECHNOLOGY     </div>
   </div>
 </div>
 
@@ -112,44 +101,19 @@
     </div>
   </body>
   <script>
+   const portfolioItems=document.querySelectorAll('.portfolio-item-wrapper')
+   portfolioItems.forEach(portfolioItem => {
 
-    // This part lets the user interface talk to the smart contract
-    // Insert the smartland deployment address where the string "SMARTLAND_CONTRACT_ADDRESS" is.
-    var smartLand;
+    portfolioItem.addEventListener('mouseover', () =>{
+      console.log(portfolioItem.childNodes[1].classList);
 
-    function startApp() {
-      var smartLandAddress = "SMARTLAND_CONTRACT_ADDRESS";
-      // The smartLandABI has been initialised in its file
-      smartLand = new web3js.eth.Contract(smartLandABI, smartLandAddress);
-    }
+      portfolioItem.childNodes[1].classList.add('img-darken');
+    })
 
-    function getTitleDetails(id) {
-      return smartLand.methods.titles(id).call() // The titles(id) is a function with parameter (could be an array or struct)
-    }
+      portfolioItem.addEventListener('mouseout', () =>{
+      portfolioItem.childNodes[1].classList.remove('img-darken');
+    })
+   })
 
-    function titleToOwner(id) {
-      return smartLand.methods.titleToOwner(id).call()
-    }
-
-    function getTitleByOwner(owner) {
-      return smartLand.methods.getTitleByOwner(owner).call()
-    }
-
-    // This is the metamask checker
-    window.addEventListener('load', function() {
-
-      // Checking if Web3 has been injected by the browser (Mist/MetaMask)
-      if (typeof web3 !== 'undefined') {
-          // Use Mist/MetaMask's provider;
-          web3js = new Web3(web3.currentProvider);
-      } else {
-          // Handle the case where the user doesn't have web3. Probably
-          // show them a message telling them to install Metamask in 
-          // order to use our app.
-      }
-
-      // Now you can start your app & access web3js freely:
-      startApp()
-      })
   </script>
-</html>
+</html> 
