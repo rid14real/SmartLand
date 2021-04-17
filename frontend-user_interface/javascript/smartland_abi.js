@@ -1,3 +1,1 @@
-var smartLandABI = [
-    
-]
+var smartLandABI;
