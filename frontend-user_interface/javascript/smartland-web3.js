@@ -65,6 +65,7 @@ import "../javascript/smartland_abi.js";
           // Handle the case where the user doesn't have web3. Probably
           // show them a message telling them to install Metamask in 
           // order to use our app.
+          web3 = new Web3(new Web3.providers.HttpProvider("MetaMask"));
       }
 
       // Now you can start your app & access web3js freely:

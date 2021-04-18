@@ -5,18 +5,159 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script language="javascript" type="text/javascript" src="https://cdnjs.cloudfare.com/ajax/lips/jquery/3.3.1/jquery.min.js"></script>
-    <script language="javascript" type="text/javascript" src="web3.min.js"></script>
-    <!-- <script language="javascript" type="text/javascript" src="../javascript/smartland-web3.js"></script> -->
-    <!-- <script language="javascript" type="text/javascript" src="../javascript/metamask-checker.js"></script> -->
+    <script src='https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js'></script>
     <script language="javascript" type="text/javascript" src="../javascript/smartland_abi.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/platform.css">
     <title>Platform</title>
 </head>
 <body>
+    <div class="container">
+        <div class="nav-wrapper">
+          <div class="left-side">
+            <div class="nav-link-wrapper">
+             <a href="index.html">Home</a>
+            </div>
+            <div class="nav-link-wrapper">
+             <a href="about.html">Contact</a>
+            </div>
+            <div class="nav-link-wrapper">
+              <a href="platform.html">Platform</a>
+             </div>
+         </div>
+         <div class="right-side"></div>
+          <div class="brand">
+             <div>SMARTLAND</div>
+            </div>
+         </div>
+         
+    <div id="heading">
+        <h1 id="welcome">Welcome to SmartLand!</h1>
+        <h3>Blockchain-as-a-service Platform</h3>
+        <p>smartland is our Blockchain-as-a-service platform use case for easy land titling
+            for land registries. It enables transparency and efficiency in the real estate industry.
+        </p>
+    </div>
+
+    <!--List of Titles Section-->
+    <div class="container">
+        <h1>Total Titles</h1>
+
+        <h2 id="mint"></h2>
+
+        <button onclick="getTitles();">Get All Titles</button>
+    </div>
     
 
-<script>
-        // This part lets the user interface talk to the smart contract
+    <!--Registration Section-->
+    <div class="container">
+        <h1>Register User</h1>
+
+        <h2 id="mint"></h2>
+
+        <label for="name" class="col-lg-2 control-label">User Address</label>
+        <input id="address" type="text">
+
+        <label for="name" class="col-lg-2 control-label">User ID</label>
+        <input id="ID" type="text">
+
+        <label for="name" class="col-lg-2 control-label">User Name</label>
+        <input id="name" type="text">
+
+        <button id="button">Update Title Registry</button>
+    </div>
+
+    <!--Mint Section-->
+    <div class="container">
+        <h1>Mint Title</h1>
+
+        <h2 id="mint"></h2>
+
+        <label for="name" class="col-lg-2 control-label">Receiver</label>
+        <input id="receiver" type="text">
+
+        <label for="name" class="col-lg-2 control-label">Title Address</label>
+        <input id="address" type="text">
+
+        <label for="name" class="col-lg-2 control-label">Title Coordinates</label>
+        <input id="coordinates" type="text">
+
+        <button onclick="mintNewTitle();">Mint New Title</button>
+        Status: <span id="status">Loading...</span>
+    </div>
+
+    <div class="container">
+        <h1>Title Info</h1>
+
+        <h2 id="mint"></h2>
+
+        <label for="name" class="col-lg-2 control-label">Title Info</label>
+        <input id="title-info" type="text">
+
+        <button id="button">Get Title Info</button>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script type="text/javascript">
+
+var a = document.getElementById("mint");
+
+async function loadWeb3() {
+    if (window.ethereum) {
+        window.web3 = new Web3(window.ethereum);
+        window.ethereum.enable();
+    }
+}
+
+async function loadContract() {
+    // set ABI
+    var abi = [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":true,"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"Transfer","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"_userAddress","type":"address"},{"indexed":false,"internalType":"uint256","name":"_registryNo","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"_id","type":"uint256"},{"indexed":false,"internalType":"string","name":"_name","type":"string"}],"name":"UserRegistered","type":"event"},{"inputs":[{"internalType":"address","name":"owner","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"_titleId","type":"uint256"}],"name":"getTitleInfo","outputs":[{"internalType":"string","name":"","type":"string"},{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_address","type":"address"}],"name":"getUserInfo","outputs":[{"internalType":"uint256","name":"","type":"uint256"},{"internalType":"uint256","name":"","type":"uint256"},{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_receiver","type":"address"},{"internalType":"string","name":"_titleAddress","type":"string"},{"internalType":"string","name":"_titleCoordinates","type":"string"}],"name":"mint","outputs":[{"internalType":"uint256","name":"_titleId","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"ownerOf","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_address","type":"address"},{"internalType":"uint256","name":"_id","type":"uint256"},{"internalType":"string","name":"_name","type":"string"}],"name":"registerUser","outputs":[{"internalType":"bool","name":"success","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"bytes4","name":"interfaceId","type":"bytes4"}],"name":"supportsInterface","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"totalBalance","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_sender","type":"address"},{"internalType":"address","name":"_receiver","type":"address"},{"internalType":"uint256","name":"_titleId","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"success","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_newOwner","type":"address"}],"name":"transferOwnership","outputs":[{"internalType":"bool","name":"success","type":"bool"}],"stateMutability":"nonpayable","type":"function"}]
+
+    //set contract address
+    var contractAddress = '0x8f0087cB503392964Aa77f0EE3cC3216dB849602';
+
+    return await new window.web3.eth.Contract(abi,contractAddress);
+}
+
+async function getTitles() {
+    updateStatus('fetching All Titles...');
+    const titlesNumber = await window.contract.methods.totalSupply().call();
+    
+    for (i = 0;i < titlesNumber;i++){
+        var result1 = await window.contract.methods.getTitleDetails(i).call();
+        a.innerHTML = a.innerHTML+"<h5>" + "TitleID: "+ result1[0]+" " + "Name: " + result1[1] + " Title Address: " + result1[2] + "</h5>";
+    }
+   
+    updateStatus(`All Titles No.: ${tweetsNumber}`);
+}
+
+async function ownerOf() {
+    const accounts = await window.web3.eth.getAccounts();
+    return accounts[0];
+}
+
+async function createTitle() {
+    updateStatus(`Updating Title ...`);
+    const account = await ownerOf();
+    const coolNumber = await window.contract.methods.mintNewTitle(document.getElementById("receiver").value,document.getElementById("address").value).send({ from: account });
+    updateStatus('Updated.');
+}
+
+async function load() {
+    await loadWeb3();
+    window.contract = await loadContract();
+    updateStatus('Ready!');
+}
+
+function updateStatus(status) {
+    const statusEl = document.getElementById('status');
+    statusEl.innerHTML = status;
+    console.log(status);
+}
+
+load();
+
+/* S
+    // This part lets the user interface talk to the smart contract
     // Insert the smartland deployment address where the string "SMARTLAND_CONTRACT_ADDRESS" is.
     var smartLand;
 
@@ -67,23 +208,10 @@
     return smartLand.methods.getTitleByOwner(owner).call()
     }
 
-    // This is the metamask checker
-    window.addEventListener('load', function() {
-
-    // Checking if Web3 has been injected by the browser (Mist/MetaMask)
-    if (typeof web3 !== 'undefined') {
-        // Use Mist/MetaMask's provider;
-        web3js = new Web3(web3.currentProvider);
-    } else {
-        // Handle the case where the user doesn't have web3. Probably
-        // show them a message telling them to install Metamask in 
-        // order to use our app.
-        web3 = new Web3(new Web3.providers.HttpProvider("MetaMask"));
-    }
-
+    
     // Now you can start your app & access web3js freely:
     startApp()
-    })
+    }) */
     
 </script>
 </body>
