@@ -1,12 +1,14 @@
 /*master styles*/
 .body{
-
+    height: 100%;
     margin: 0px;
 }
 
 .container{
     display: grid;
     grid-template-columns: 1fr;
+    min-height: 100%;
+    
 }
 
 /*nav styles*/
@@ -108,6 +110,32 @@ color: black;
 .img-darken{
     transition: 1s;
     filter: brightness(10%);
+
+}
+
+/*footer*/
+.footer{
+    background: lightseagreen;
+    color: white;
+    height: 400px;
+    position: relative;
+}
+
+.footer .footer-content{
+
+    border: 1px solid black;
+}
+
+.footer .footer-bottom{
+  background: turquoise;
+  color: black;
+  height: 50px;
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  padding-top: 20px;
 
 }
 
